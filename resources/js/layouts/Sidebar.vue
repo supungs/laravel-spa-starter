@@ -15,12 +15,7 @@
               <span class="hide-menu">Form Basic</span>
             </router-link>
           </li>
-          <li class="sidebar-item">
-            <router-link to="/login" class="sidebar-link waves-effect waves-dark sidebar-link" key="login" aria-expanded="false">
-              <i class="mdi mdi-login"></i>
-              <span class="hide-menu">Login</span>
-            </router-link>
-          </li>
+          <li class="nav-small-cap"></li>
           <li class="sidebar-item">
             <router-link to="/logout" class="sidebar-link waves-effect waves-dark sidebar-link" key="logout" aria-expanded="false">
               <i class="mdi mdi-logout"></i>
