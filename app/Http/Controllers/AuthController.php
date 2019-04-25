@@ -16,7 +16,7 @@ class AuthController extends Controller{
         $credentials = request(['email', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return jsend_fail(['user_not_found'], 404);
         }
 
         return $this->respondWithToken($token);
@@ -34,24 +34,26 @@ class AuthController extends Controller{
             return response()->json($e->getMessage(), 500);
         }
 
-        return response()->json(['message' => 'You are successfully logged out!']);
+        return jsend_success(['message' => 'You are successfully logged out!']);
     }
 
     public function me(Request $request){
-        return response(Auth::user());
+        return jsend_success(Auth::user());
+    }
+
+    public function check() {
+        return jsend_success(['authenticated' => true]);
     }
 
     protected function respondWithToken($token) {
         $user = Auth::user();
-        return response()->json([
-            'status' => 'success',
-            'data' => [
-                'token' => $token,
-                'token_type' => 'bearer',
-                'user_id' => $user['id'], 
-                'user_name' => $user['name'],
-                'expires_in' => auth()->factory()->getTTL() * 60
-            ]
-        ]);
+        $data = [
+            'token' => $token,
+            'token_type' => 'bearer',
+            'user_id' => $user['id'], 
+            'user_name' => $user['name'],
+            'expires_in' => auth()->factory()->getTTL() * 60
+        ];
+        return jsend_success($data);
     }
 }

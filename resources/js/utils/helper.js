@@ -1,11 +1,27 @@
 export default {
-    logout(){
+    login(email, password, callSuccess, callFail){
+        var data = { email: email, password: password };
+        axios.post('/api/auth/login', data).then(response =>  {
+            if (response.data.status == 'success'){
+                var data = response.data.data;
+                localStorage.setItem('auth_token', data.token);
+                axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;
+                callSuccess({id: data.user_id, name: data.user_name });
+            } else callFail();
+        }).catch(error => {
+            console.log(error.response);
+            callFail(error.response.status);
+        });
+    },
+
+    logout(callSuccess, callFail){
         return axios.post('/api/auth/logout').then(response =>  {
             localStorage.removeItem('auth_token');
             axios.defaults.headers.common['Authorization'] = null;
-            toastr['success'](response.data.message);
+            callSuccess();
         }).catch(error => {
             console.log(error);
+            callFail();
         });
     },
 
@@ -19,9 +35,9 @@ export default {
 
     check(){
         return axios.post('/api/auth/check').then(response =>  {
-            return !!response.data.authenticated;
+            return true;
         }).catch(error =>{
-            return response.data.authenticated;
+            return false;
         });
     },
 

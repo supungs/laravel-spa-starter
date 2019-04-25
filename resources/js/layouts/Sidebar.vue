@@ -4,15 +4,27 @@
       <nav class="sidebar-nav">
         <ul id="sidebarnav">
           <li class="sidebar-item">
-            <router-link to="/home" class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false">
+            <router-link to="/home" class="sidebar-link waves-effect waves-dark sidebar-link" key="home" aria-expanded="false">
               <i class="mdi mdi-av-timer"></i>
               <span class="hide-menu">Dashboard</span>
             </router-link>
           </li>
           <li class="sidebar-item">
-            <router-link to="/page" class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false">
+            <router-link to="/page" class="sidebar-link waves-effect waves-dark sidebar-link" key="page" aria-expanded="false">
               <i class="mdi mdi-arrange-bring-forward"></i>
               <span class="hide-menu">Form Basic</span>
+            </router-link>
+          </li>
+          <li class="sidebar-item">
+            <router-link to="/login" class="sidebar-link waves-effect waves-dark sidebar-link" key="login" aria-expanded="false">
+              <i class="mdi mdi-login"></i>
+              <span class="hide-menu">Login</span>
+            </router-link>
+          </li>
+          <li class="sidebar-item">
+            <router-link to="/logout" class="sidebar-link waves-effect waves-dark sidebar-link" key="logout" aria-expanded="false">
+              <i class="mdi mdi-logout"></i>
+              <span class="hide-menu">Logout</span>
             </router-link>
           </li>
         </ul>

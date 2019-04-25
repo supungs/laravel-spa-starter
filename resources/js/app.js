@@ -15,9 +15,11 @@ window.$ = jQuery;
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 import router from './routes';
+import store from './store'
 
 const app = new Vue({
     el: '#app',
     router,
+    store,
     template: '<router-view></router-view>'
 });

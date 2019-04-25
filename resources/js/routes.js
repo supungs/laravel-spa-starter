@@ -7,6 +7,7 @@ import Home  from './views/Home.vue'
 import Page  from './views/Page.vue'
 
 import Login  from './views/auth/Login.vue'
+import Logout  from './views/auth/Logout.vue'
 import Recover  from './views/auth/Recover.vue'
 
 let routes = [
@@ -35,6 +36,17 @@ let routes = [
     {
         path: '/',
         component: GuestLayout,
+        meta: { requiresAuth: true },
+        children: [
+            {
+                path: '/logout',
+                component: Logout
+            }
+        ]
+    },
+    {
+        path: '/',
+        component: GuestLayout,
         meta: { requiresGuest: true },
         children: [
             {
@@ -55,29 +67,29 @@ const router = new VueRouter({
     mode: 'history'
 });
 
-// router.beforeEach((to, from, next) => {
+router.beforeEach((to, from, next) => {
 
-//     if (to.matched.some(m => m.meta.requiresAuth)){
-//         return helper.check().then(response => {
-//             if(!response){
-//                 return next({ path : '/login'})
-//             }
+    if (to.matched.some(m => m.meta.requiresAuth)){
+        return helper.check().then(response => {
+            if(!response){
+                return next({ path : '/login'})
+            }
 
-//             return next()
-//         })
-//     }
+            return next();
+        })
+    }
 
-//     if (to.matched.some(m => m.meta.requiresGuest)){
-//         return helper.check().then(response => {
-//             if(response){
-//                 return next({ path : '/'})
-//             }
+    if (to.matched.some(m => m.meta.requiresGuest)){
+        return helper.check().then(response => {
+            if(response){
+                return next({ path : '/'})
+            }
 
-//             return next()
-//         })
-//     }
+            return next();
+        })
+    }
 
-//     return next()
-// });
+    return next();
+});
 
 export default router;
